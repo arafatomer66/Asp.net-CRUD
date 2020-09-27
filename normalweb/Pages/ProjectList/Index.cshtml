@@ -1,0 +1,76 @@
+﻿@page
+@model normalweb.Pages.ProjectList.IndexModel
+@{
+}
+
+
+<div class="container p-0 m-0">
+    <div class="row">
+        <div class="col-8">
+            <div class="text-info">
+                <h2>Project List</h2>
+            </div>
+        </div>
+        <div class="col-4">
+            <div>
+                <button class="btn btn-info form-control" > <a asp-page="Create">Create Project</a> </button>
+</div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-12 border p-3 mt-3">
+            <form method="post">
+                @if (Model.Projects.Count() > 0)
+                {
+                    <table class="table table-striped border">
+                        <tr class="table-secondary">
+                            <th>
+                                <label asp-for="Projects.FirstOrDefault().Name">
+
+                                </label>
+                            </th>
+                            <th>
+                                <label asp-for="Projects.FirstOrDefault().Description">
+
+                                </label>
+                            </th>
+                            <th>
+                                <label asp-for="Projects.FirstOrDefault().Manager">
+
+                                </label>
+                            </th>
+                            <th>
+                                <label>Actions</label>
+                            </th>
+
+                        </tr>
+                        @foreach (var item in Model.Projects)
+                        {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(m => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => item.Description)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => item.Manager)
+                        </td>
+                        <td>
+                            <button asp-page-handler="Delete" asp-route-id="@item.Id" onclick="return confirm('Are You Sure')" class="btn btn-danger btn-sm">Delete</button>
+                            <a asp-page="Edit" asp-route-id="@item.Id"  class="btn btn-success btn-sm">Update</a>
+                        </td>
+                    </tr>
+                        }
+                    </table>
+                }
+                else
+                {
+                    <p>Their is no project , quick add some !</p>
+                }
+            </form>
+        </div>
+    </div>
+</div>
